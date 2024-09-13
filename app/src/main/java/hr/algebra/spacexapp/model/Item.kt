@@ -1,0 +1,30 @@
+package hr.algebra.spacexapp.model
+
+data class Item(
+    var _id: Long?,
+    val lastAisUpdate: String?,
+    val legacyId: String?,
+    val model: String?,
+    val type: String?,
+    val roles: List<String>,
+    val imo: Int?,
+    val mmsi: Int?,
+    val abs: Int?,
+    val `class`: Int?,
+    val massKg: Int?,
+    val massLbs: Int?,
+    val yearBuilt: Int?,
+    val homePort: String?,
+    val status: String?,
+    val speedKn: String?,
+    val courseDeg: String?,
+    val latitude: String?,
+    val longitude: String?,
+    val link: String?,
+    val image: String?,
+    val name: String,
+    val active: Boolean,
+    val launches: List<String>,
+    var id: String?,
+    var read: Boolean
+)

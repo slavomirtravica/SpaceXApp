@@ -6,12 +6,13 @@ import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import hr.algebra.spacexapp.databinding.ActivityHostBinding
 
 class HostActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHostBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
@@ -29,13 +30,14 @@ class HostActivity : AppCompatActivity() {
     }
 
     private fun initNavigation() {
-        val navController = Navigation.findNavController(this, R.id.navController)
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.navController) as NavHostFragment
+        val navController = navHostFragment.navController
         NavigationUI.setupWithNavController(binding.navView, navController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.host_menu, menu)
-
         return true
     }
 
@@ -45,7 +47,6 @@ class HostActivity : AppCompatActivity() {
                 toggleDrawer()
                 return true
             }
-
             R.id.menuExit -> {
                 exitApp()
                 return true
@@ -61,7 +62,7 @@ class HostActivity : AppCompatActivity() {
             setIcon(R.drawable.exit)
             setCancelable(true)
             setNegativeButton(getString(R.string.cancel), null)
-            setPositiveButton("OK") {_, _ -> finish()}
+            setPositiveButton("OK") { _, _ -> finish() }
             show()
         }
     }

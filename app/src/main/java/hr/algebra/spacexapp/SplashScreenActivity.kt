@@ -13,6 +13,7 @@ import hr.algebra.spacexapp.framework.applyAnimation
 import hr.algebra.spacexapp.framework.callDelayed
 import hr.algebra.spacexapp.framework.getBooleanPreference
 import hr.algebra.spacexapp.framework.isOnline
+import hr.algebra.spacexapp.framework.setBooleanPreference
 import hr.algebra.spacexapp.framework.startActivity
 
 private const val DELAY = 3000L
@@ -36,6 +37,9 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun redirect() {
+//        setBooleanPreference(DATA_IMPORTED, false) // nema nigdje usage, ali uporno get vraća da je importano
+//        println("DATA_IMPORTED: ${getBooleanPreference(DATA_IMPORTED)}")
+
         if (getBooleanPreference(DATA_IMPORTED)) {
             callDelayed(DELAY) {
                 startActivity<HostActivity>()
