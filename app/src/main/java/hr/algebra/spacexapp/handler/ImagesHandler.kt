@@ -10,13 +10,18 @@ import java.nio.file.Paths
 
 fun  downloadImageAndStore(context: Context, imageUrl: String): String? {
 
-    val fileName = imageUrl.substringAfterLast("/")
+    val fileName = imageUrl.substringAfterLast("/").replace(".jpg", ".jpeg")
+
+    println("Downloading image: $fileName")
 
     val file: File = createLocalFile(context, fileName) // target
 
     try {
         val con: HttpURLConnection = createGetHttpUrlConnection(imageUrl) // source
         Files.copy(con.inputStream, Paths.get(file.toURI()))
+
+        println("File downloaded to: ${file.absolutePath}")
+
         return file.absolutePath
     } catch (e: Exception) {
         Log.e("IMAGES_HANDLER", e.toString(), e)

@@ -15,10 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SpaceXApp"
         tools:targetApi="31">
+        <provider
+            android:name=".SpacexContentProvider"
+            android:authorities="hr.algebra.spacexapp.api.provider"
+            android:enabled="true"
+            android:exported="false"></provider>
+
         <receiver
             android:name=".SpacexReceiver"
             android:enabled="true"
-            android:exported="false"></receiver>
+            android:exported="false" />
 
         <activity
             android:name=".HostActivity"

@@ -1,7 +1,9 @@
 package hr.algebra.spacexapp.api
 
+import android.content.ContentValues
 import android.content.Context
 import android.util.Log
+import hr.algebra.spacexapp.SPACEX_PROVIDER_CONTENT_URI
 import hr.algebra.spacexapp.model.Item
 import hr.algebra.spacexapp.SpacexReceiver
 import hr.algebra.spacexapp.framework.*
@@ -47,44 +49,29 @@ class SpacexFetcher(private val context: Context) {
 
     private fun populateItems(spacexItems: List<SpacexItem>, count: Int) {
         // foreground
-        val items = mutableListOf<Item>()
-
         val scope = CoroutineScope(Dispatchers.IO)
         scope.launch {
             spacexItems.take(count).forEach {
                 val picturePath = it.image?.let { imageUrl ->
                     downloadImageAndStore(context, imageUrl)
                 } ?: ""
-                items.add(
-                    Item(
-                        null,
-                        it.lastAisUpdate,
-                        it.legacyId,
-                        it.model,
-                        it.type,
-                        it.roles,
-                        it.imo,
-                        it.mmsi,
-                        it.abs,
-                        it.`class`,
-                        it.massKg,
-                        it.massLbs,
-                        it.yearBuilt,
-                        it.homePort,
-                        it.status,
-                        it.speedKn,
-                        it.courseDeg,
-                        it.latitude,
-                        it.longitude,
-                        it.link,
-                        picturePath ?: "",
-                        it.name,
-                        it.active,
-                        it.launches,
-                        it.id,
-                        false
-                    )
+
+                val values = ContentValues().apply {
+                    put(Item::name.name, it.name)
+                    put(Item::massKg.name, it.massKg ?: 0)
+                    put(Item::model.name, it.model ?: "")
+                    put(Item::yearBuilt.name, it.yearBuilt ?: 0)
+                    put(Item::speedKn.name, it.speedKn ?: "")
+                    put(Item::image.name, it.image ?: "")
+                    put(Item::read.name, false)
+
+                }
+
+                context.contentResolver.insert(
+                    SPACEX_PROVIDER_CONTENT_URI,
+                    values
                 )
+
             }
 
             context.sendBroadcast<SpacexReceiver>()
