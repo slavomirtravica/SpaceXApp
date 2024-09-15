@@ -64,10 +64,8 @@ class ItemAdapter(
                 null
             )
 
-            items.removeAt(position)
             File(item.image).delete()
             notifyDataSetChanged()
-
 
             true
         }

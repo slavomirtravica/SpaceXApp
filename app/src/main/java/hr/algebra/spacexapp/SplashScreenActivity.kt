@@ -2,8 +2,6 @@ package hr.algebra.spacexapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
@@ -13,19 +11,21 @@ import hr.algebra.spacexapp.framework.applyAnimation
 import hr.algebra.spacexapp.framework.callDelayed
 import hr.algebra.spacexapp.framework.getBooleanPreference
 import hr.algebra.spacexapp.framework.isOnline
-import hr.algebra.spacexapp.framework.setBooleanPreference
 import hr.algebra.spacexapp.framework.startActivity
+import com.google.firebase.analytics.FirebaseAnalytics
 
 private const val DELAY = 3000L
 const val DATA_IMPORTED = "hr.algebra.spacexapp.data_imported"
 
 class SplashScreenActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashScreenBinding
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
         startAnimations()
         redirect()
