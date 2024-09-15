@@ -15,11 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SpaceXApp"
         tools:targetApi="31">
+        <activity
+            android:name=".ItemPagerActivity"
+            android:exported="false" />
+
         <provider
             android:name=".SpacexContentProvider"
             android:authorities="hr.algebra.spacexapp.api.provider"
             android:enabled="true"
-            android:exported="false"></provider>
+            android:exported="false" />
 
         <receiver
             android:name=".SpacexReceiver"

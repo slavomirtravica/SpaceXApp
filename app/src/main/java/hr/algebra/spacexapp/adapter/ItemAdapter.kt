@@ -9,11 +9,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import hr.algebra.spacexapp.ItemPagerActivity
+import hr.algebra.spacexapp.POSITION
 import hr.algebra.spacexapp.R
 import hr.algebra.spacexapp.model.Item
 import hr.algebra.spacexapp.SPACEX_PROVIDER_CONTENT_URI
+import hr.algebra.spacexapp.framework.startActivity
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 import java.io.File
+import kotlin.io.path.Path
 
 class ItemAdapter(
     private val context: Context,
@@ -26,11 +30,18 @@ class ItemAdapter(
 
         fun bind(item: Item) {
             tvItem.text = item.name
-            Picasso.get()
-                .load(File(item.image))
-                .error(R.drawable.spacex)
-                .transform(RoundedCornersTransformation(50, 5))
-                .into(ivItem)
+
+            val imagePath = item.image
+            if (!imagePath.isNullOrEmpty()) {
+                Picasso.get()
+                    .load(imagePath)
+                    .error(R.drawable.spacex)
+                    .transform(RoundedCornersTransformation(50, 5))
+                    .into(ivItem)
+            } else {
+                // Handle the case where imagePath is null or empty
+                ivItem.setImageResource(R.drawable.spacex)
+            }
         }
 
     }
@@ -60,8 +71,9 @@ class ItemAdapter(
 
             true
         }
+
         holder.itemView.setOnClickListener {
-            // edit
+            context.startActivity<ItemPagerActivity>(POSITION, position)
         }
 
         holder.bind(items[position])

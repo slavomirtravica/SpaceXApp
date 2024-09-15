@@ -11,4 +11,9 @@
     <string name="exit_prompt">Really want to exit?</string>
     <string name="cancel">Cancel</string>
     <string name="picture_of_the_day">Picture of the day</string>
+    <string name="date">Date</string>
+    <string name="home_port">Home port</string>
+    <string name="ship_name">Ship name</string>
+    <string name="year_built">Year built\n</string>
+    <string name="rijeka">Rijeka</string>
 </resources>
